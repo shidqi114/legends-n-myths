@@ -18,7 +18,8 @@ interface Lamp {
 }
 
 const useMedia = (query: string) => {
-  const [match, setMatch] = useState(() => typeof window !== 'undefined' && window.matchMedia(query).matches);
+  // Starts false on every render path so prerendered HTML and the first client render agree; the effect corrects it.
+  const [match, setMatch] = useState(false);
   useEffect(() => {
     const mq = window.matchMedia(query);
     const on = () => setMatch(mq.matches);

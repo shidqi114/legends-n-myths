@@ -110,7 +110,12 @@ swings, grows and softens by how close its puppet is held to the light.
 ## Components
 
 ### Top Navigation
-- Sticky night bar: wordmark ("Legends *n* Myths", the *n* in lamp glow) and three anchors. On phones only "Programme" stays.
+- Sticky night bar: wordmark ("Legends *n* Myths", the *n* in lamp glow), three section anchors and a lamp-glow "Watch" pill.
+  At 720px and below it stops being sticky: wordmark and Watch share the first row, the anchors take a second row.
+
+### Policy pages
+- Parchment page, big display title, effective date in lamp colour, a night "In short" panel, then a sticky
+  table of contents beside numbered sections (stacked under 860px). Text lives in `src/legal.ts`.
 
 ### Buttons
 - **Rod button**: night-ink pill on dark, 46px min touch target, turns lamp glow on hover.
@@ -135,7 +140,7 @@ swings, grows and softens by how close its puppet is held to the light.
 ### Don't
 - Don't add gradients, glows or colour outside the lamp light.
 - Don't invent numbers (views, subscribers, ratings).
-- Don't link buttons to `#`; leave the channel URL empty and the button says "opening soon".
+- Don't link buttons to `#`; every button goes somewhere real.
 
 ## Responsive Behavior
 
@@ -158,5 +163,5 @@ swings, grows and softens by how close its puppet is held to the light.
 3. Check both widths with Playwright screenshots before committing.
 
 ## Known Gaps
-- Channel URLs are not set yet (`CHANNEL` in `src/content.ts`).
-- No embedded video yet; when the first Short is public, add it to the "Out now" row.
+- No contact email on the policy pages yet (`CHANNEL.email`).
+- No embedded video yet; the "Out now" row links to the channel's Shorts tab.

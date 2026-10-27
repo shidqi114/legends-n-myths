@@ -1,6 +1,7 @@
 import { CHANNEL, EPISODES, PARENT_NOTES, SANGKURIANG, STEPS, type Episode } from './content';
 import { PuppetTile } from './components/PuppetTile';
 import { ShadowStage } from './components/ShadowStage';
+import { SiteFooter, SiteHeader } from './components/SiteChrome';
 import type { PuppetName } from './components/puppets';
 
 const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI'];
@@ -13,16 +14,9 @@ const TILE_BOX: Partial<Record<PuppetName, [number, number, number, number]>> = 
   cucumber: [-135, -250, 260, 260],
 };
 
-function ChannelLink({ href, label }: { href: string; label: string }) {
-  if (!href) {
-    return (
-      <span className="btn btn--ghost" aria-disabled="true">
-        {label}: opening soon
-      </span>
-    );
-  }
+function ChannelLink({ href, label, ghost }: { href: string; label: string; ghost?: boolean }) {
   return (
-    <a className="btn" href={href} target="_blank" rel="noopener noreferrer">
+    <a className={ghost ? 'btn btn--ghost' : 'btn'} href={href} target="_blank" rel="noopener noreferrer">
       {label}
     </a>
   );
@@ -45,6 +39,11 @@ function ProgrammeRow({ ep, n }: { ep: Episode; n: number }) {
           {ep.length && <span>{ep.length}</span>}
           <span className={`stamp stamp--${ep.status === 'Out now' ? 'live' : 'soon'}`}>{ep.status}</span>
         </p>
+        {ep.watch && (
+          <a className="bill__watch" href={ep.watch} target="_blank" rel="noopener noreferrer">
+            Watch {ep.title} on YouTube
+          </a>
+        )}
       </div>
       <PuppetTile
         className="bill__tile"
@@ -64,16 +63,7 @@ export default function App() {
         Skip to the programme
       </a>
 
-      <header className="top">
-        <a className="wordmark" href="#top" aria-label={`${CHANNEL.name}, home`}>
-          Legends <em>n</em> Myths
-        </a>
-        <nav aria-label="Sections">
-          <a href="#programme">Programme</a>
-          <a href="#workshop">Workshop</a>
-          <a href="#grown-ups">For grown-ups</a>
-        </nav>
-      </header>
+      <SiteHeader />
 
       <main id="top">
         <section className="theatre" aria-labelledby="hero-title">
@@ -83,10 +73,16 @@ export default function App() {
               <br />
               by lamplight.
             </h1>
-            <p className="theatre__lede">
-              Two-minute shadow-puppet stories from Indonesia and across Asia, for curious kids and the grown-ups
-              sitting next to them.
-            </p>
+            <div className="theatre__aside">
+              <p className="theatre__lede">
+                Two-minute shadow-puppet stories from Indonesia and across Asia, for curious kids and the grown-ups
+                sitting next to them.
+              </p>
+              <div className="theatre__links">
+                <ChannelLink href={CHANNEL.youtubeShorts} label="Watch on YouTube" />
+                <ChannelLink href={CHANNEL.tiktok} label="TikTok" ghost />
+              </div>
+            </div>
           </div>
           <ShadowStage beats={SANGKURIANG} title="Sangkuriang, the legend of the upturned boat" />
         </section>
@@ -163,19 +159,14 @@ export default function App() {
             <h2 id="finale-title">Which legend should the lamp light next?</h2>
             <p>New shadow plays arrive on YouTube Shorts and TikTok. Ask a grown-up to follow us.</p>
             <div className="finale__links">
-              <ChannelLink href={CHANNEL.youtube} label="YouTube" />
-              <ChannelLink href={CHANNEL.tiktok} label="TikTok" />
+              <ChannelLink href={CHANNEL.youtube} label="Follow on YouTube" />
+              <ChannelLink href={CHANNEL.tiktok} label={`TikTok ${CHANNEL.tiktokHandle}`} ghost />
             </div>
           </div>
         </section>
       </main>
 
-      <footer className="foot">
-        <p>
-          {CHANNEL.name}. Shadow-puppet legends for kids, made in the spirit of wayang kulit, the shadow theatre of
-          Java.
-        </p>
-      </footer>
+      <SiteFooter />
     </>
   );
 }

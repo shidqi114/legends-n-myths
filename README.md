@@ -20,18 +20,34 @@ npm run preview    # serve the build
 ```
 
 The build uses a relative base path, so `dist/` can be hosted from any sub-path (GitHub Pages, Vercel, Netlify).
+`npm run build` also prerenders every page to static HTML (`scripts/prerender.mjs`), so the pages read
+without JavaScript; React then hydrates them.
+
+## Pages
+
+| URL | Page |
+|---|---|
+| `/` | Landing page |
+| `/privacy/` | Privacy Policy (also covers the YouTube API Services / TikTok Content Posting API upload tool) |
+| `/terms/` | Terms of Service |
+
+Use the full `/privacy/` and `/terms/` URLs of the deployed site wherever a platform asks for them
+(Google Cloud OAuth consent screen, TikTok for Developers app).
 
 ## Where things live
 
 | Path | What |
 |---|---|
-| `src/content.ts` | Channel links, the hero story beats, the episode programme, workshop steps, notes for parents |
+| `src/content.ts` | Channel links and contact email, the hero story beats, the episode programme, workshop steps, notes for parents |
+| `src/legal.ts` | Privacy Policy and Terms of Service text and their effective date |
+| `src/components/LegalPage.tsx`, `SiteChrome.tsx` | Policy page layout; shared header and footer |
 | `src/components/puppets.tsx` | Puppet silhouettes, ink, gels and lamp colours |
 | `src/components/ShadowStage.tsx` | The interactive shadow screen |
 | `src/components/PuppetTile.tsx` | A single puppet on lamp-lit cloth (programme, explorer, finale) |
 | `src/styles.css` | Theme tokens (light parchment / dark lamplight) and layout |
 
-**Before launch:** fill in `CHANNEL.youtube` and `CHANNEL.tiktok` in `src/content.ts`. Until then those buttons read "opening soon".
+Channels: [YouTube @Legends-n-Myths](https://www.youtube.com/@Legends-n-Myths) and [TikTok @legendsmyths3](https://www.tiktok.com/@legendsmyths3).
+Set `CHANNEL.email` in `src/content.ts` to show a contact email on the policy pages (they point to the channels until then).
 
 ## Agent skills
 

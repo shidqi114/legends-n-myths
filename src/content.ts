@@ -1,10 +1,13 @@
 import type { PuppetName } from './components/puppets';
 
-/** Channel links. Leave a value empty and its button reads "opening soon" instead of linking nowhere. */
 export const CHANNEL = {
   name: 'Legends n Myths',
-  youtube: '',
-  tiktok: '',
+  youtube: 'https://www.youtube.com/@Legends-n-Myths',
+  youtubeShorts: 'https://www.youtube.com/@Legends-n-Myths/shorts',
+  tiktok: 'https://www.tiktok.com/@legendsmyths3',
+  tiktokHandle: '@legendsmyths3',
+  /** Shown on the policy pages. Leave empty to send people to the channels instead. */
+  email: '',
 };
 
 /** One puppet on the screen during a beat. x/y are stage units (1280 × 720 screen, ground at y 610). */
@@ -97,6 +100,8 @@ export interface Episode {
   length?: string;
   puppet: PuppetName;
   gel: string;
+  /** Where to watch it, once it is out. */
+  watch?: string;
 }
 
 export const EPISODES: Episode[] = [
@@ -107,6 +112,7 @@ export const EPISODES: Episode[] = [
     hook: 'Why does a volcano near Bandung look like a boat lying upside down?',
     status: 'Out now',
     length: '2:09',
+    watch: 'https://www.youtube.com/@Legends-n-Myths/shorts',
     puppet: 'boat',
     gel: 'rgb(214,64,48)',
   },

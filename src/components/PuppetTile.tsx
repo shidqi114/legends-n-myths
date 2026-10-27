@@ -7,6 +7,7 @@ interface Props {
   box: [number, number, number, number];
   /** A tint mixed into the lamp light, usually the character's gel. */
   tint?: string;
+  /** Accessible name; leave empty for a purely decorative tile. */
   label: string;
   className?: string;
 }
@@ -17,7 +18,7 @@ export function PuppetTile({ who, box, tint, label, className }: Props) {
   const Puppet = PUPPETS[who];
   const [x, y, w, h] = box;
   return (
-    <svg className={className} viewBox={box.join(' ')} role="img" aria-label={label} preserveAspectRatio="xMidYMax meet">
+    <svg className={className} viewBox={box.join(' ')} role={label ? 'img' : undefined} aria-label={label || undefined} aria-hidden={label ? undefined : true} preserveAspectRatio="xMidYMax meet">
       <defs>
         <radialGradient id={`g${id}`} gradientUnits="userSpaceOnUse" cx={x + w / 2} cy={y + h * 0.38} r={Math.max(w, h) * 0.95}>
           {LAMP_STOPS.map(([o, c]) => (
